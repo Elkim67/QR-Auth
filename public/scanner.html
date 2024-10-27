@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/accueil.css" />
+    <link rel="stylesheet" href="/css/code.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/css/scanner.css" />
+    <script src="/js/accueil.js" defer></script>
+    <script src="/js/code.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>Admin QR</title>
+  </head>
+  <body>
+    <div class="side-menu">
+      <div class="side-head">
+        <p>Administrateur</p>
+        <h2>Menu</h2>
+      </div>
+      <div class="options">
+        <div class="option">
+          <a href="admin.html">Accueil</a>
+          <img src="/img/home_24px.png" alt="" />
+        </div>
+        <div class="option">
+          <a href="admincode.html">Admin QR</a>
+          <img src="/img/qr_code_24px.png" alt="" />
+        </div>
+        <div class="option">
+          <a href="scanner.html">Scanner</a>
+          <img src="/img/qr_code_24px.png" alt="" />
+        </div>
+        <div class="option">
+          <a href="#"><a href="#">A Propos</a></a>
+          <img src="/img/about_24px.png" alt="" />
+        </div>
+        <div class="deconnect about">
+          <a href="connexion.html" class="deconnexion">Se Déconnecter</a>
+        </div>
+        <p>Developped by K7 Teams</p>
+      </div>
+    </div>
+    <header>
+      <div class="header-container">
+        <div class="burger-menu">
+          <img src="/img/menu_24px.png" alt="" />
+        </div>
+        <div class="logo">QR Auth</div>
+      </div>
+    </header>
+    <section class="container closing_btn">
+      <div id="scanner"></div>
+    </section>
+    <footer>
+      <br />
+      QR-Auth <br />
+      <br />
+      Tous Droits &copy reservés K7 Teams
+      <br /><br />
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enregistrement</title>
+    <link rel="stylesheet" href="/css/enregistrement.css" />
+    <script src="/public/js/enregistrement.js" defer></script>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <form>
+          <h2 class="section-title">Enregistrement</h2>
+          <div class="step step-1 active">
+            <div class="form-group">
+              <label for="firstName">Nom</label>
+              <input
+                required
+                autocomplete="off"
+                type="text"
+                id="firstName"
+                name="first-name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="lastName">Postnom</label>
+              <input
+                required
+                autocomplete="off"
+                type="text"
+                id="lastName"
+                name="last-name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="nickName">Prénom</label>
+              <input
+                required
+                autocomplete="off"
+                type="text"
+                id="nickName"
+                name="nick-name"
+              />
+            </div>
+            <button type="button" class="next-btn first_next-btn">Next</button>
+            <div class="alternative">
+              Déjà de compte ?
+              <a class="register_link" href="connexion.html">Connectez-vous</a>
+            </div>
+          </div>
+          <div class="step step-2">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                required
+                autocomplete="off"
+                type="text"
+                id="email"
+                name="email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Téléphone</label>
+              <input required type="number" id="phone" name="phone-number" />
+            </div>
+            <button type="button" class="previous-btn">Prev</button>
+            <button type="button" class="next-btn">Next</button>
+          </div>
+          <div class="step step-3">
+            <div class="form-group">
+              <label for="country">Pays</label>
+              <input required type="text" id="country" name="country" />
+            </div>
+            <div class="form-group">
+              <label for="city">Ville</label>
+              <input
+                required
+                autocomplete="off"
+                type="text"
+                id="city"
+                name="city"
+              />
+            </div>
+            <div class="form-group">
+              <label for="postCode">Post Code</label>
+              <input type="text" id="postCode" name="post-code" />
+            </div>
+            <button type="button" class="previous-btn">Prev</button>
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

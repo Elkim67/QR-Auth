@@ -1,0 +1,11 @@
+#scanner {
+  margin: 2rem;
+  height: 70vh;
+  background-color: rgb(248, 247, 247);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0px 0px 50px #00000020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

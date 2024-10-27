@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion</title>
+    <link rel="stylesheet" href="/css/enregistrement.css" />
+    <link rel="stylesheet" href="/css/connexion.css" />
+    <script src="/js/connexion.js" defer></script>
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <form action="/login" method="POST">
+          <div class="log_error">! Identifiant Invalide</div>
+          <h2 class="section-title">Connexion</h2>
+          <div class="form-group">
+            <label for="firstName">Nom</label>
+            <input
+              required
+              autocomplete="off"
+              type="text"
+              id="firstName"
+              name="first_name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de Passe</label>
+            <input
+              required
+              autocomplete="off"
+              type="password"
+              id="password"
+              name="pass_word"
+            />
+          </div>
+          <div class="others">
+            <button type="submit" class="submit-btn">Connecter</button>
+            <div class="alternative">
+              Pas de compte ?
+              <a class="register_link" href="enregistrement.html"
+                >Enregistrez-vous</a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

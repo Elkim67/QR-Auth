@@ -1,0 +1,29 @@
+.container {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.others {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form .alternative {
+  padding-top: 0px;
+}
+
+form .alternative .register_link {
+  color: rgb(194, 49, 105);
+  text-decoration: none;
+}
+
+form .alternative .register_link:hover {
+  text-decoration: underline;
+}
+
+button.submit-btn {
+  text-align: center;
+}

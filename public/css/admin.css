@@ -1,0 +1,8 @@
+.side-head {
+  min-height: 150px;
+  padding-top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
