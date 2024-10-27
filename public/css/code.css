@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  position: fixed;
+  height: 100%;
 }
 
 footer {
