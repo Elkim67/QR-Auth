@@ -6,8 +6,7 @@ body {
   );
 }
 
-.container {
-  max-height: 110%;
+section {
   margin: 0;
   padding: 0;
 }
