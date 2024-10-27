@@ -6,6 +6,10 @@ body {
   );
 }
 
+.container {
+  position: fixed;
+}
+
 footer {
   width: 100%;
   height: 13vh;
