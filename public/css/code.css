@@ -19,6 +19,7 @@ body {
 }
 
 footer {
+  margin: 0;
   width: 100%;
   height: 13vh;
   background-color: rgb(74, 41, 128);
