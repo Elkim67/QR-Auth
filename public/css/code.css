@@ -8,7 +8,9 @@ section {
 
 #qrcode {
   /* margin: 2rem; */
+  padding: 2rem;
   max-height: 70vh;
+  width: 20vh;
   background-color: rgb(248, 247, 247);
   border: none;
   border-radius: 12px;
