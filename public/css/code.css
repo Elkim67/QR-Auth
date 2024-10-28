@@ -4,12 +4,12 @@ section {
     rgb(58, 99, 134),
     rgb(74, 41, 128)
   );
-  margin: 0;
 }
 
 #qrcode {
   margin: 2rem;
   max-height: 70vh;
+  width: 40vw;
   background-color: rgb(248, 247, 247);
   border: none;
   border-radius: 12px;
