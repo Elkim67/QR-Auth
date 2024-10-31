@@ -11,7 +11,7 @@
   <body>
     <section>
       <div class="container">
-        <form>
+        <form method="post" action="/register">
           <h2 class="section-title">Enregistrement</h2>
           <div class="step step-1 active">
             <div class="form-group">
@@ -21,7 +21,7 @@
                 autocomplete="off"
                 type="text"
                 id="firstName"
-                name="first-name"
+                name="_firstname"
               />
             </div>
             <div class="form-group">
@@ -31,7 +31,7 @@
                 autocomplete="off"
                 type="text"
                 id="lastName"
-                name="last-name"
+                name="_lastname"
               />
             </div>
             <div class="form-group">
@@ -41,10 +41,12 @@
                 autocomplete="off"
                 type="text"
                 id="nickName"
-                name="nick-name"
+                name="_nickname"
               />
             </div>
-            <button type="button" class="next-btn first_next-btn">Next</button>
+            <button type="button" class="next-btn first_next-btn">
+              Suivant
+            </button>
             <div class="alternative">
               Déjà de compte ?
               <a class="register_link" href="connexion.html">Connectez-vous</a>
@@ -52,43 +54,49 @@
           </div>
           <div class="step step-2">
             <div class="form-group">
-              <label for="email">Email</label>
+              <label for="Date de naissance">Date de naissance</label>
               <input
                 required
                 autocomplete="off"
-                type="text"
-                id="email"
-                name="email"
+                type="date"
+                id="birthdate"
+                name="_birthdate"
               />
             </div>
             <div class="form-group">
-              <label for="phone">Téléphone</label>
-              <input required type="number" id="phone" name="phone-number" />
+              <label for="Lieu de naissance">Lieu de naissance</label>
+              <input required type="text" id="birthplace" name="_birthplace" />
             </div>
             <button type="button" class="previous-btn">Prev</button>
-            <button type="button" class="next-btn">Next</button>
+            <button type="button" class="next-btn">Suivant</button>
           </div>
           <div class="step step-3">
             <div class="form-group">
-              <label for="country">Pays</label>
-              <input required type="text" id="country" name="country" />
+              <label for="matricule">Matricule</label>
+              <input required type="text" id="matricule" name="_matricule" />
             </div>
             <div class="form-group">
-              <label for="city">Ville</label>
-              <input
+              <label for="division">Division</label>
+              <!--<input
                 required
                 autocomplete="off"
                 type="text"
-                id="city"
-                name="city"
-              />
+                id="division"
+                name="division"
+              />--->
+              <select id="options" name="_options">
+                <option value="option1">Programmation</option>
+                <option value="option1">Préinvestissement</option>
+                <option value="option1">Budgétisation</option>
+                <option value="option1">Informatique</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="postCode">Post Code</label>
-              <input type="text" id="postCode" name="post-code" />
+              <label for="passeword">Nouveau mot de passe</label>
+              <input type="text" id="postCode" name="_password" />
             </div>
             <button type="button" class="previous-btn">Prev</button>
-            <button type="submit" class="submit-btn">Submit</button>
+            <button type="submit" class="submit-btn">Envoyer</button>
           </div>
         </form>
       </div>

@@ -28,6 +28,11 @@ app.get("/login", (req, res) => {
   res.sendFile(path.join(initial_path, "public", "connexion.html"));
 });
 
+// Route pour le formulaire de connexion
+app.get("/register", (req, res) => {
+  res.sendFile(path.join(initial_path, "public", "enregistrement.html"));
+});
+
 // app.get("/qrcode", (req, res) => {
 //   res.sendFile(path.join(initial_path, "code.html"));
 // });
@@ -61,6 +66,44 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+// Route pour traiter la soumission du formulaire
+app.post("/register", (req, res) => {
+  const {
+    _firstname,
+    _lastname,
+    _nickname,
+    _birthdate,
+    _birthplace,
+    _matricule,
+    _options,
+    _password,
+  } = req.body;
+
+  // Insérer les données dans la base de données
+  const sql =
+    "INSERT INTO agents (nomClient, postnomClient, prenomClient, datedenaissance, lieudenaissance, matricule, division, passwordClient) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  connection.query(
+    sql,
+    [
+      _firstname,
+      _lastname,
+      _nickname,
+      _birthdate,
+      _birthplace,
+      _matricule,
+      _options,
+      _password,
+    ],
+    (err, result) => {
+      if (err) {
+        return res.status(500).send("Error inserting data");
+      }
+      res.redirect("/login");
+      res.send("Data inserted successfully!");
+    }
+  );
+});
 
 // Route pour traiter le formulaire de connexion
 app.post("/login", (req, res) => {
