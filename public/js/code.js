@@ -1,40 +1,30 @@
-// const { response } = require("express");
+const first_name = "KIWOY";
+const last_name = "MUSUAMBA";
 
-// let first_name = /*document.getElementById("firstName").value*/ "KIWOY";
-// let last_name = /*document.getElementById("lastName").value*/ "MUSUAMBA";
+const alert_btn = document.querySelector(".alert-btn");
+alert_btn.style.visibility = "hidden";
 
-async function generateQRCode() {
-  const response = await fetch("/qrcode"); // Appel à la route sans ID
-
-  if (!response.ok) {
-    console.error(
-      "Erreur lors de la récupération des informations de l'utilisateur"
-    );
-    return;
-  }
-
-  const userInfo = await response.json();
-  const qrData = JSON.stringify(userInfo); // Convertir les informations en JSON
-
-  // Générer le code QR
-  const qr = new QRious({
-    element: document.getElementById("qrcode"),
-    value: qrData,
-    size: 200, // Taille du QR code
-  });
-
-  // let qr = new QRCode(document.getElementById("qrcode"), {
-  //   value: qrData,
-  //   width: 208,
-  //   height: 208,
-  // });
-  // console.log(qrData);
-}
-// Appeler la fonction pour générer le QR code
-generateQRCode();
-
-// let qrcode = new QRCode(document.getElementById("qrcode"), {
-//   text: first_name + " " + last_name,
-//   width: 208,
-//   height: 208,
-// });
+window.addEventListener("DOMContentLoaded", (event) => {
+  fetch("/user")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Response: ", data);
+      if (data.username && data.middlename !== null) {
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          text: data.username + " " + data.middlename,
+          width: 208,
+          height: 208,
+        });
+        console.log("Done");
+      } else {
+        alert_btn.style.visibility = "visible";
+        document.querySelector(".no-user-text").innerHTML =
+          "Aucun utilisateur trouvé";
+        console.log("Not Good");
+      }
+    })
+    .catch((error) => {
+      console.error("erreur: ", error);
+    });
+  console.log("DOM Loaded");
+});

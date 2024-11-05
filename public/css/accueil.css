@@ -49,6 +49,11 @@ header img {
   z-index: 1;
 }
 
+/*display the name of the current user*/
+#current_user {
+  padding: 10px;
+}
+
 /* .active {
   transform: translate(225px);
 } */

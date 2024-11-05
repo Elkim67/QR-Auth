@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/accueil.css" />
     <link rel="stylesheet" href="/css/code.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="/js/accueil.js" defer></script>
     <script src="/js/code.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.0/qrious.min.js"></script>
+    <script src="/js/userprinter.js" defer></script>
+    <script src="/js/qrprinter.js" defer></script>
     <title>QR Code</title>
   </head>
   <body>
     <div class="side-menu">
       <div class="side-head">
+        <p id="current_user"></p>
         <h2>Menu</h2>
       </div>
       <div class="options">
@@ -44,7 +46,10 @@
       </div>
     </header>
     <section class="container closing_btn">
-      <div id="qrcode"></div>
+      <div id="qrcode">
+        <img src="/img/box_important_32px.png" class="alert-btn" alt="" />
+        <p class="no-user-text"></p>
+      </div>
     </section>
     <footer>
       <br />

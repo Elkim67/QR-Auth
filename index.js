@@ -4,6 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const session = require("express-session");
+const cors = require("cors");
 
 let initial_path = path.join(__dirname, "public");
 
@@ -19,6 +20,8 @@ app.use(
   })
 );
 
+app.use(cors());
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(initial_path, "/index.html"));
 });
@@ -33,9 +36,9 @@ app.get("/register", (req, res) => {
   res.sendFile(path.join(initial_path, "public", "enregistrement.html"));
 });
 
-// app.get("/qrcode", (req, res) => {
-//   res.sendFile(path.join(initial_path, "code.html"));
-// });
+app.get("/qrcode", (req, res) => {
+  res.sendFile(path.join(initial_path, "code.html"));
+});
 
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(initial_path, "admin.html"));
@@ -108,6 +111,7 @@ app.post("/register", (req, res) => {
 // Route pour traiter le formulaire de connexion
 app.post("/login", (req, res) => {
   const { first_name, pass_word } = req.body;
+  const username = req.body.first_name;
 
   // Requête pour vérifier les identifiants dans la base de données
   connection.query(
@@ -130,7 +134,8 @@ app.post("/login", (req, res) => {
   );
   //requete utilisateur
   connection.query(
-    "SELECT * FROM agents WHERE nomClient = ? AND passwordClient = ?",
+    // "SELECT * FROM agents WHERE nomClient = ? AND passwordClient = ?",
+    "SELECT postnomClient FROM agents WHERE nomClient = ? AND passwordClient = ?",
     [first_name, pass_word],
     (err, results) => {
       if (err) {
@@ -139,7 +144,28 @@ app.post("/login", (req, res) => {
 
       if (results.length > 0) {
         // Authentification réussie
+
         req.session.userId = results[0].id;
+        const user = results[0];
+        req.session.first_name = username;
+        req.session.postnomClient = user.postnomClient; // Stocker postnomClient dans la session
+        // Récupération du postnomClient si nécessaire
+        // connection.query(
+        //   "SELECT postnomClient FROM agents WHERE nomClient = ?",
+        //   [req.session.first_name],
+        //   (err, userDetails) => {
+        //     if (err) {
+        //       console.log("Not good at all");
+        //       return res
+        //         .status(500)
+        //         .json({ erreur: "Erreur lors de la récupération des détails" });
+        //     }
+        //     // Vous pouvez stocker d'autres informations dans la session si nécessaire
+        //     req.session.postnomClient = userDetails[0]?.postnomClient; // Utilisation de l'opérateur de coalescence
+        //     console.log("On est là*: " + req.session.postnomClient);
+        //     res.json();
+        //   }
+        // );
         res.redirect("/"); // Redirection vers la page souhaitée
       } else {
         // Authentification échouée
@@ -149,41 +175,14 @@ app.post("/login", (req, res) => {
   );
 });
 
-//recuperation des informations pour le qrcode
-
-app.get("/qrcode", (req, res) => {
-  console.log("User ID:", req.session.userId); // Vérifiez la valeur ici
-
-  if (!req.session.userId) {
-    return res.status(403).send("Accès interdit"); // L'utilisateur n'est pas connecté
-  }
-
-  const userId = req.session.userId;
-
-  connection.query(
-    "SELECT * FROM agents WHERE idAgent = ?",
-    [userId],
-    (err, results) => {
-      if (err) {
-        return res.status(500).send("Erreur du serveur");
-      }
-
-      if (results.length > 0) {
-        const user = results[0];
-        const userInfo = {
-          nom: user.nomClient,
-          postnom: user.postnomClient,
-          // Ajoutez d'autres informations si nécessaire
-        };
-
-        res.json(userInfo); // Renvoie les informations de l'utilisateur au client
-      } else {
-        res.status(404).send("Utilisateur non trouvé");
-      }
-    }
-  );
+app.get("/user", (req, res) => {
+  res.json({
+    username: req.session.first_name || null,
+    middlename: req.session.postnomClient || null,
+  });
 });
 
+// recuperation des informations pour le qrcode
 app.listen(port, () => {
   console.log("server is online");
 });
