@@ -1,0 +1,33 @@
+.closing_btn {
+}
+
+.tab table {
+  padding-bottom: 50px;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  border-collapse: collapse;
+}
+
+thead th {
+  background-color: #535c53;
+  color: rgb(36, 23, 23);
+  padding: 10px;
+  text-align: center;
+}
+
+tbody td {
+  padding: 10px;
+  border: 1px solid #312b2b;
+  color: rgb(36, 23, 23);
+}
+
+footer {
+  visibility: hidden;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  left: 25%;
+}

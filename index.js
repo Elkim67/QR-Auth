@@ -40,16 +40,23 @@ app.get("/qrcode", (req, res) => {
   res.sendFile(path.join(initial_path, "code.html"));
 });
 
+app.get("/scanner", (req, res) => {
+  res.sendFile(path.join(initial_path, "scanner.html"));
+});
+
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(initial_path, "admin.html"));
+});
+app.get("/historique", (req, res) => {
+  res.sendFile(path.join(initial_path, "historique.html"));
 });
 
 //partie admin // Configuration de la connexion MySQL
 const connection = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "gestion_pointage",
+  host: "zpfp07ebhm2zgmrm.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+  user: "rov67jrjrei2o1t0",
+  password: "rp37bvuadp8qhvdx",
+  database: "ub1b1kvra6vg3dme",
 });
 
 connection.connect((err) => {
@@ -177,8 +184,21 @@ app.post("/login", (req, res) => {
 
 app.get("/user", (req, res) => {
   res.json({
+    id: req.session.userId || null,
     username: req.session.first_name || null,
     middlename: req.session.postnomClient || null,
+  });
+});
+
+//scanner
+app.post("/scanner", (req, res) => {
+  const { name, scan_time } = req.body;
+  const sql = "INSERT INTO scans (idAgent,nomScan, scan_time) VALUES (?,?, ?)";
+  connection.query(sql, [idAgent, name, scan_time], (err, result) => {
+    if (err) {
+      return res.status(500).send("Erreur lors de l'enregistrement");
+    }
+    res.send("Scan enregistré avec succès");
   });
 });
 

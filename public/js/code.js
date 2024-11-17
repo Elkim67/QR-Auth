@@ -1,6 +1,3 @@
-const first_name = "KIWOY";
-const last_name = "MUSUAMBA";
-
 const alert_btn = document.querySelector(".alert-btn");
 alert_btn.style.visibility = "hidden";
 
@@ -12,8 +9,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
       if (data.username && data.middlename !== null) {
         var qrcode = new QRCode(document.getElementById("qrcode"), {
           text: data.username + " " + data.middlename,
-          width: 208,
-          height: 208,
+          width: 203,
+          height: 203,
         });
         console.log("Done");
       } else {
