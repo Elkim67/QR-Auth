@@ -35,28 +35,40 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
   res.sendFile(path.join(initial_path, "public", "enregistrement.html"));
 });
-
+// Route pour le qrcode
 app.get("/qrcode", (req, res) => {
   res.sendFile(path.join(initial_path, "code.html"));
 });
-
+// Route pour le scanner
 app.get("/scanner", (req, res) => {
   res.sendFile(path.join(initial_path, "scanner.html"));
 });
-
-app.get("/admin", (req, res) => {
+// Route pour le secretaire
+app.get("/dashboard", (req, res) => {
   res.sendFile(path.join(initial_path, "admin.html"));
 });
+// Route pour administrateur
+app.get("/admin", (req, res) => {
+  res.sendFile(path.join(initial_path, "domainadmin.html"));
+});
+// Route pour consulter l'historique
 app.get("/historique", (req, res) => {
   res.sendFile(path.join(initial_path, "historique.html"));
 });
 
 //partie admin // Configuration de la connexion MySQL
+// const connection = mysql.createConnection({
+//   host: "zpfp07ebhm2zgmrm.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+//   user: "rov67jrjrei2o1t0",
+//   password: "rp37bvuadp8qhvdx",
+//   database: "ub1b1kvra6vg3dme",
+// });
+
 const connection = mysql.createConnection({
-  host: "zpfp07ebhm2zgmrm.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-  user: "rov67jrjrei2o1t0",
-  password: "rp37bvuadp8qhvdx",
-  database: "ub1b1kvra6vg3dme",
+  host: "127.0.0.1",
+  user: "root",
+  password: "",
+  database: "gestion_pointage",
 });
 
 connection.connect((err) => {
@@ -132,14 +144,33 @@ app.post("/login", (req, res) => {
       if (results.length > 0) {
         // Authentification réussie
         req.session.userId = results[0].id;
-        res.redirect("/admin"); // Redirection vers la page souhaitée
+        res.redirect("/admin"); // Redirection vers la page admin
       } else {
         // Authentification échouée
         res.sendFile(path.join(initial_path, "error.html"));
       }
     }
   );
-  //requete utilisateur
+  //requete secretaire
+  connection.query(
+    "SELECT * FROM secretaire WHERE nomSec = ? AND passeSec = ?",
+    [first_name, pass_word],
+    (err, results) => {
+      if (err) {
+        return res.status(500).send("Erreur du serveur");
+      }
+
+      if (results.length > 0) {
+        // Authentification réussie
+        req.session.userId = results[0].id;
+        res.redirect("/dashboard"); // Redirection vers la page souhaitée
+      } else {
+        // Authentification échouée
+        res.sendFile(path.join(initial_path, "error.html"));
+      }
+    }
+  );
+  //requete agents
   connection.query(
     // "SELECT * FROM agents WHERE nomClient = ? AND passwordClient = ?",
     "SELECT postnomClient FROM agents WHERE nomClient = ? AND passwordClient = ?",
@@ -193,8 +224,8 @@ app.get("/user", (req, res) => {
 //scanner
 app.post("/scanner", (req, res) => {
   const { name, scan_time } = req.body;
-  const sql = "INSERT INTO scans (idAgent,nomScan, scan_time) VALUES (?,?, ?)";
-  connection.query(sql, [idAgent, name, scan_time], (err, result) => {
+  const sql = "INSERT INTO scans (nomScan, scan_time) VALUES (?, ?)";
+  connection.query(sql, [name, scan_time], (err, result) => {
     if (err) {
       return res.status(500).send("Erreur lors de l'enregistrement");
     }

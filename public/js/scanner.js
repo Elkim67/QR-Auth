@@ -1,46 +1,3 @@
-// const html5QrCode = new Html5QrcodeScanner("reader");
-
-// html5QrCode
-//   .start(
-//     { facingMode: "environment" },
-//     {
-//       fps: 10,
-//       qrbox: { width: 250, height: 250 },
-//     },
-//     // (qrCodeMessage) => {
-//     //   const data = JSON.parse(qrCodeMessage); // Supposons que le QR code contient un JSON
-//     //   const { first_name, last_name } = data;
-//     (qrCodeMessage) => {
-//       // Ce qui se passe lorsque le code QR est détecté
-//       $("#result").text(`Code QR détecté : ${qrCodeMessage}`);
-//       console.log("Code QR détecté : ", qrCodeMessage);
-
-//       // Envoie des données à l'API
-//       const scanData = {
-//         first_name: first_name,
-//         last_name: last_name,
-//         scan_time: new Date().toISOString(),
-//       };
-
-//       $.post("/scanner", scanData, (response) => {
-//         $("#result").text(response);
-//       }).fail(() => {
-//         $("#result").text("Erreur lors de l'enregistrement des données.");
-//       });
-//       console.log("Je s'appelle Groot !");
-
-//       // Arrêter le scanner après le premier scan
-//       html5QrCode.stop();
-//     },
-//     (errorMessage) => {
-//       // Gérer les erreurs de scan ici
-//     }
-//   )
-//   .catch((err) => {
-//     console.log("Erreur lors du démarrage du scanner : ", err);
-//   });
-
-// console.log(Html5QrcodeScanner);
 const modal = document.querySelector(".modal-box");
 const scanResult = document.querySelector(".scan-result");
 const scanBtn = document.querySelector(".scan-btn");
@@ -63,9 +20,7 @@ scanBtn.addEventListener("click", () => {
     scanner.clear();
 
     setTimeout(() => {
-      for (let i = 0; i <= 1; i++) {
-        reload();
-      }
+      reload();
     }, 3500);
 
     // Envoie des données à l'API
@@ -74,15 +29,29 @@ scanBtn.addEventListener("click", () => {
       scan_time: new Date().toISOString(),
     };
 
-    $.post("/scanner", scanData, (response) => {
-      $("#result").text(response);
-    }).fail(() => {
-      $("#result").text("Erreur lors de l'enregistrement des données.");
-    });
-    console.log("Je s'appelle Groot !");
-
-    // document.getElementById("result").remove();
+    console.log(scanData.name);
+    console.log(scanData.scan_time);
   }
+
+  fetch("/scanner", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(scanData), // Convertir scanData en JSON
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi des données.");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      console.log("Réponse du serveur :", data);
+    })
+    .catch((error) => {
+      console.error("Erreur :", error);
+    });
 
   function error(err) {
     console.error(err);
@@ -92,3 +61,34 @@ scanBtn.addEventListener("click", () => {
 function reload() {
   location.reload();
 }
+
+//can be reused because you never know
+// $.post("/scanner", scanData, (response) => {
+//   $("#result").text(response);
+// }).fail(() => {
+//   $("#result").text("Erreur lors de l'enregistrement des données.");
+// });
+// console.log("Je s'appelle Groot !");
+// fetch("/scanner", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(scanData),
+// })
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error("Erreur lors de l'enregistrement des données.");
+//     }
+//     return response.text();
+//   })
+//   .then((data) => {
+//     document.getElementById("result").textContent = data;
+//   })
+//   .catch((error) => {
+//     document.getElementById("result").textContent = error.message;
+//   });
+
+// console.log("Je s'appelle Groot !");
+
+// document.getElementById("result").remove();
